@@ -1,7 +1,42 @@
 section.case-summary
     .spinner.spinner-inline(ng-show='CaseDetailsService.caseDetailsLoading')
     .div.row.row-very-suprt(ng-show='!CaseDetailsService.caseDetailsLoading && CaseDetailsService.kase.summary !== undefined')
+        .div.col-xs-12
+            .pull-right
+                button.btn.btn-app.btn-sm(ng-click='editCaseSummary(true)') {{'Edit'|translate}}
         .div.col-xs-12(ng-show='CaseDetailsService.kase.summary.lastModifiedBy !== undefined && CaseDetailsService.kase.summary.lastModified !== undefined')
             span(translate) Last Modified by {{CaseDetailsService.kase.summary.lastModifiedBy}} on {{CaseDetailsService.kase.summary.lastModified}}
-        .div.col-xs-12
+        .div.col-xs-12(ng-show='!editingSummary')
             span.monospace {{CaseDetailsService.kase.summary.summaryText}}
+        .div.col-xs-12(ng-show='editingSummary')
+            form(name='summaryForm')
+                .div
+                    textarea.comment.expanded#rha-case-summary.form-control(
+                    ng-model='CaseDetailsService.kase.summary.summaryText',
+                    name='case_summary')
+                .div
+                    button.btn.btn-primary(
+                    name='saveButton',
+                    ng-disabled='updatingDetails',
+                    ng-click='updateCase()', translate='') Save
+                    a.margin-left(
+                    ng-hide='updatingDetails',
+                    ng-click='editCaseSummary(false)') {{'Cancel'|translate}}
+    .div.row.row-very-suprt(ng-show='!CaseDetailsService.caseDetailsLoading && CaseDetailsService.kase.summary === undefined')
+        .div.col-xs-12
+            .pull-right
+                button.btn.btn-app.btn-sm(ng-click='editCaseSummary(true)') {{'New'|translate}}
+        .div.col-xs-12(ng-show='editingSummary')
+            form(name='summaryForm')
+                .div
+                    textarea.comment.expanded#rha-case-summary.form-control(
+                    ng-model='CaseDetailsService.kase.summary.summaryText',
+                    name='case_summary')
+                .div
+                    button.btn.btn-primary(
+                    name='saveButton',
+                    ng-disabled='updatingDetails',
+                    ng-click='updateCase()', translate='') Save
+                    a.margin-left(
+                    ng-hide='updatingDetails',
+                    ng-click='editCaseSummary(false)') {{'Cancel'|translate}}

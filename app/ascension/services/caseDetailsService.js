@@ -430,7 +430,7 @@ angular.module('RedhatAccess.ascension').service('CaseDetailsService', [
                 resource : {}
             };
             var self = true;
-            if (this.kase.summary.summaryText !== undefined && !angular.equals(this.prestineKase.summary.summaryText, this.kase.summary.summaryText)) {
+            if (this.kase.summary.summaryText !== undefined && (this.prestineKase.summary === undefined || !angular.equals(this.prestineKase.summary.summaryText, this.kase.summary.summaryText))) {
                 var caseSummary = {
                     resource : {
                         summary: this.kase.summary.summaryText
